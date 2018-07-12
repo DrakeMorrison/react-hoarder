@@ -9,16 +9,17 @@ import AllStuff from '../components/AllStuff/AllStuff';
 import MyStuff from '../components/MyStuff/MyStuff';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
+// import myStuffRequests from '../firebaseRequests/myStuff';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
-const PrivateRoute = ({ component: Component, authed, ...rest}) => {
+const PrivateRoute = ({ component: Component, authed, things, ...rest}) => {
   return (
     <Route
       {...rest}
       render={props =>
         authed === true ? (
-          <Component {...props} />
+          <Component {...props} props={things}/>
         ) : (
           <Redirect
             to={{ pathname: '/login', state: {from: props.location}}}
@@ -49,6 +50,7 @@ const PublicRoute = ({ component: Component, authed, ...rest}) => {
 class App extends Component {
   state={
     authed: false,
+    stuff: [],
   };
 
   componentDidMount () {
@@ -68,6 +70,10 @@ class App extends Component {
   runAway = () => {
     this.setState({authed: false});
   }
+
+  addToHoard = (key) => {
+    console.error({key});
+  };
 
   render () {
     return (
@@ -96,11 +102,13 @@ class App extends Component {
                     path='/mystuff'
                     authed={this.state.authed}
                     component={MyStuff}
+                    stuff={this.state.stuff}
                   />
                   <PrivateRoute
                     path='/allstuff'
                     authed={this.state.authed}
                     component={AllStuff}
+                    things={this.addToHoard}
                   />
                 </Switch>
               </div>

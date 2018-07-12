@@ -20,18 +20,20 @@ class AllStuff extends React.Component {
   }
 
   render () {
+    const {addToHoard} = this.props;
     const itemComponents = this.state.stuff.map((item) => {
       return (
         <Item
           key={item.id}
           details={item}
+          addToHoard={addToHoard}
         />
       );
     });
     return (
       <div className="AllStuff col-xs-12">
         <h2>AllStuff</h2>
-        <ul className="fishes">
+        <ul className="items">
           {itemComponents}
         </ul>
       </div>
