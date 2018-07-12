@@ -13,13 +13,20 @@ import Register from '../components/Register/Register';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
-const PrivateRoute = ({ component: Component, authed, things, ...rest}) => {
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+};
+
+const PrivateRoute = ({component, authed, ...rest}) => {
   return (
     <Route
       {...rest}
       render={props =>
         authed === true ? (
-          <Component {...props} props={things}/>
+          renderMergedProps(component, props, rest)
         ) : (
           <Redirect
             to={{ pathname: '/login', state: {from: props.location}}}
@@ -71,8 +78,8 @@ class App extends Component {
     this.setState({authed: false});
   }
 
-  addToHoard = (key) => {
-    console.error({key});
+  addToHoard = (e) => {
+    console.error(e.target);
   };
 
   render () {

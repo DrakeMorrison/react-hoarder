@@ -20,13 +20,13 @@ class AllStuff extends React.Component {
   }
 
   render () {
-    const {addToHoard} = this.props;
+    const {things} = this.props;
     const itemComponents = this.state.stuff.map((item) => {
       return (
         <Item
           key={item.id}
           details={item}
-          addToHoard={addToHoard}
+          addToHoard={things}
         />
       );
     });
