@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class Item extends React.Component {
   render () {
@@ -9,7 +10,13 @@ class Item extends React.Component {
       <div className='Item'>
         <div className="col-sm-6 col-md-4">
           <div className="thumbnail">
-            <img src={details.itemImage} alt="..." />
+
+            {isOwned ? (
+              <Link to={{pathname: `/item/${details.id}`}}><img src={details.itemImage} alt="..." /></Link>
+            ) : (
+              <img src={details.itemImage} alt="..." />
+            ) }
+
             <div className="caption">
               <h3>{details.itemName}</h3>
               <p>{details.itemDescription}</p>

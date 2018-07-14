@@ -9,6 +9,7 @@ import AllStuff from '../components/AllStuff/AllStuff';
 import MyStuff from '../components/MyStuff/MyStuff';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
+import SingleItem from '../components/SingleItem/SingleItem';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
@@ -108,6 +109,11 @@ class App extends Component {
                     path='/allstuff'
                     authed={this.state.authed}
                     component={AllStuff}
+                  />
+                  <PrivateRoute
+                    path='/item/:id'
+                    authed={this.state.authed}
+                    component={SingleItem}
                   />
                 </Switch>
               </div>
