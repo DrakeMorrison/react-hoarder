@@ -21,4 +21,19 @@ const getRequest = () => {
   });
 };
 
-export default { getRequest };
+const postRequest = (itemId) => {
+  const newItem = {};
+  newItem[itemId] = 1;
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${constants.firebaseConfig.databaseURL}/mystuff.json`, newItem)
+      .then(res => {
+        resolve(res);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
+export default { getRequest, postRequest };

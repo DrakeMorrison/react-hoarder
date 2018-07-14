@@ -9,7 +9,7 @@ import AllStuff from '../components/AllStuff/AllStuff';
 import MyStuff from '../components/MyStuff/MyStuff';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
-// import myStuffRequests from '../firebaseRequests/myStuff';
+import myStuffRequests from '../firebaseRequests/myStuff';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
@@ -78,8 +78,18 @@ class App extends Component {
     this.setState({authed: false});
   }
 
-  addToHoard = (e) => {
-    console.error(e.target);
+  addToHoard = (itemId) => {
+    // this.setState({stuff: [
+    //   {
+    //     'itemId': itemId,
+    //   },
+    // ]});
+    myStuffRequests
+      .postRequest(itemId)
+      .then((stuff) => {
+        this.setState({stuff});
+      })
+      .catch(console.error.bind(console));
   };
 
   render () {

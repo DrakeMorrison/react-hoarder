@@ -11,7 +11,7 @@ class Item extends React.Component {
             <div className="caption">
               <h3>{details.itemName}</h3>
               <p>{details.itemDescription}</p>
-              <p><button className="btn btn-primary" onClick={addToHoard}>Grab</button></p>
+              <p><button className="btn btn-primary" onClick={() => addToHoard(details.id)}>Grab</button></p>
             </div>
           </div>
         </div>
