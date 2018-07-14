@@ -47,4 +47,17 @@ const putRequest = (itemId, item) => {
   });
 };
 
-export default { getRequest, postRequest, putRequest };
+const deleteRequest = (orderId) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${constants.firebaseConfig.databaseURL}/mystuff/${orderId}.json`)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export default { getRequest, postRequest, putRequest, deleteRequest };

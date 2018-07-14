@@ -2,7 +2,9 @@ import React from 'react';
 
 class Item extends React.Component {
   render () {
-    const {details, addToHoard} = this.props;
+    const {details, addToHoard, isOwned, removeFromHoard} = this.props;
+    const grabButton = <button className="btn btn-primary" onClick={() => addToHoard(details)}>Grab</button>;
+    const deleteButton = <button className='btn btn-danger' onClick={() => removeFromHoard(details)}>Delete</button>;
     return (
       <div className='Item'>
         <div className="col-sm-6 col-md-4">
@@ -11,7 +13,7 @@ class Item extends React.Component {
             <div className="caption">
               <h3>{details.itemName}</h3>
               <p>{details.itemDescription}</p>
-              <p><button className="btn btn-primary" onClick={() => addToHoard(details)}>Grab</button></p>
+              <p>{isOwned ? deleteButton : grabButton}</p>
             </div>
           </div>
         </div>

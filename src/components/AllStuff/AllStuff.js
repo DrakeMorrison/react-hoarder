@@ -38,6 +38,7 @@ class AllStuff extends React.Component {
           key={item.id}
           details={item}
           addToHoard={this.addItem}
+          isOwned={false}
         />
       );
     });
