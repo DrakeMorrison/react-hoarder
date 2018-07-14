@@ -18,7 +18,6 @@ class MyStuff extends React.Component {
   };
 
   render () {
-    // const {stuff} = this.props;
     const itemComponents = this.state.stuff.map((item) => {
       return (
         <Item

@@ -21,12 +21,10 @@ const getRequest = () => {
   });
 };
 
-const postRequest = (itemId) => {
-  const newItem = {};
-  newItem[itemId] = 1;
+const postRequest = (item) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${constants.firebaseConfig.databaseURL}/mystuff.json`, newItem)
+      .post(`${constants.firebaseConfig.databaseURL}/mystuff.json`, item)
       .then(res => {
         resolve(res);
       })
@@ -36,4 +34,17 @@ const postRequest = (itemId) => {
   });
 };
 
-export default { getRequest, postRequest };
+const putRequest = (itemId, item) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${constants.firebaseConfig.databaseURL}/mystuff/${itemId}.json`, item)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export default { getRequest, postRequest, putRequest };

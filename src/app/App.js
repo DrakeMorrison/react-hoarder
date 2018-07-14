@@ -9,7 +9,6 @@ import AllStuff from '../components/AllStuff/AllStuff';
 import MyStuff from '../components/MyStuff/MyStuff';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
-import myStuffRequests from '../firebaseRequests/myStuff';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
@@ -57,7 +56,6 @@ const PublicRoute = ({ component: Component, authed, ...rest}) => {
 class App extends Component {
   state={
     authed: false,
-    stuff: [],
   };
 
   componentDidMount () {
@@ -77,20 +75,6 @@ class App extends Component {
   runAway = () => {
     this.setState({authed: false});
   }
-
-  addToHoard = (itemId) => {
-    // this.setState({stuff: [
-    //   {
-    //     'itemId': itemId,
-    //   },
-    // ]});
-    myStuffRequests
-      .postRequest(itemId)
-      .then((stuff) => {
-        this.setState({stuff});
-      })
-      .catch(console.error.bind(console));
-  };
 
   render () {
     return (
@@ -119,13 +103,11 @@ class App extends Component {
                     path='/mystuff'
                     authed={this.state.authed}
                     component={MyStuff}
-                    stuff={this.state.stuff}
                   />
                   <PrivateRoute
                     path='/allstuff'
                     authed={this.state.authed}
                     component={AllStuff}
-                    things={this.addToHoard}
                   />
                 </Switch>
               </div>
