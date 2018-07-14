@@ -12,13 +12,20 @@ import Register from '../components/Register/Register';
 import fbConnection from '../firebaseRequests/connection';
 fbConnection();
 
-const PrivateRoute = ({ component: Component, authed, ...rest}) => {
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+};
+
+const PrivateRoute = ({component, authed, ...rest}) => {
   return (
     <Route
       {...rest}
       render={props =>
         authed === true ? (
-          <Component {...props} />
+          renderMergedProps(component, props, rest)
         ) : (
           <Redirect
             to={{ pathname: '/login', state: {from: props.location}}}
