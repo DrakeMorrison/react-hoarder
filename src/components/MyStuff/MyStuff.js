@@ -17,12 +17,27 @@ class MyStuff extends React.Component {
       .catch(console.error.bind(console));
   };
 
+  deleteItem = (item) => {
+    myStuffRequests
+      .deleteRequest(item.id)
+      .then(() => {
+        myStuffRequests
+          .getRequest()
+          .then(stuff => {
+            this.setState({stuff});
+          });
+      })
+      .catch(console.error.bind(console));
+  };
+
   render () {
     const itemComponents = this.state.stuff.map((item) => {
       return (
         <Item
           key={item.id}
           details={item}
+          isOwned={true}
+          removeFromHoard = {this.deleteItem}
         />
       );
     });
